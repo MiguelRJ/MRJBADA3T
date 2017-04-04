@@ -1,0 +1,80 @@
+para crear rutina:
+	create procedure;
+	create function;
+
+source /home/usuario/Escritorio/holaMundo.sql;
+show create procedure holaMundo\G
+call holaMundo();
+drop procedure holaMundo\G
+
+grant execute on ((*)(liga)).* to user
+
+definer / invoker
+	el invoker usa los permisos de la persona que lo invoca
+	el definer usa los permisos de la persona que lo ha creado
+
+/// { CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }
+	no todo puede ser sql
+
+
+grant alter routine on liga.* to migue;
+grant select on liga.jugador to pepe;
+
+show procedure|functions status ( [like '%x%'] | [ where db = database ] )\G ---- mostrar lista de procedimientos o functions
+
+
+03-24--------------------------------------
+	set @miEstado='P';
+	select estado(@miEstado);
+	
+03-28--------------------------------------
+	proc4.sql
+	ambitos dentro de procedures
+
+	copia de base de adtos con los procedures	
+	mysqldump -u root -p --routines test > test.dump
+	show procedure status where Db='test'\G
+	show create procedure Nombre\G
+
+
+	procedures de simple loop, repeat until, while
+
+03-31------------------------------------------
+	sqlite3
+	
+	'DAO' Direct Access Object
+	'ZCB' Zero Code Behind	
+
+	alter table dvd charset=utf8;
+	alter table dvd convert to character set utf8;
+	mysqldump -u root -p --databases catalogo > catalogo.dump;
+	alter table dvd modify anio char(4) null;
+
+04-03-----------------
+	truncate necesita permisos de alter porque borra la tabla y vuelve a crearla vacia
+	alter database character set="utf8";
+	create table pais(nombre varchar(50) primary key, name varchar(50), nom varchar(50), iso2 char(2), iso3 char(3), phone_code varchar(10)) engine=innodb default charset=utf8;
+	alter table dvd add foreign key (pais) references pais (iso2);
+	
+04-04---------------------
+	alter table pais add key (iso2);
+	alter table dvd add key (pais);
+	alter table dvd add foreign key (pais) references pais (iso2);
+	
+	Excepciones en sql:
+		DECLARE specialty CONDITION FOR SQLSTATE '45000';
+		SIGNAL SQLSTATE '01000';
+		SIGNAL SQLSTATE '45000'
+      			SET MESSAGE_TEXT = 'An error occurred';
+		SIGNAL specialty
+      			SET MESSAGE_TEXT = 'An error occurred';
+		SIGNAL SQLSTATE '01000'
+      			SET MESSAGE_TEXT = 'A warning occurred', MYSQL_ERRNO = 1000;
+    		SIGNAL SQLSTATE '45000'
+      			SET MESSAGE_TEXT = 'An error occurred', MYSQL_ERRNO = 1001;
+
+	es mejor usar el mysql_errno pero es menos portable, por lo que para multiplataforma es mejor el sqlstate
+	el mysql_errno afina mas los errores
+	
+	error 1452: Message: Cannot add or update a child row: a foreign key constraint fails (%s) 
+	
