@@ -1,8 +1,7 @@
 delimiter //
 
 drop procedure if exists puntosMes//
-drop table if exists puntosMes//
-create table puntosMes (id int,puntos int);
+
 
 create procedure puntosMes(n int)
 comment 'Calculo los puntos al mes de cada equipo, crea la table si no esta creada, la muestra y la elimina.'
@@ -13,8 +12,9 @@ begin
 	declare contador int default 1;
 	declare numMaxEquipo int default 0;
 	declare puntosSuma int default 0;
-
-	truncate puntosMes;
+	
+	drop table if exists puntosMes;
+	create temporary table puntosMes (id int,puntos int);
 	set numMaxEquipo = (select max(id) from equipo);
 	
 	WHILE contador <= numMaxEquipo DO

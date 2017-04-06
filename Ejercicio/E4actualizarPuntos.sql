@@ -28,7 +28,7 @@ begin
 		update equipo set puntos=puntosSuma where id=contador;
 		set contador = contador+1;
 	END WHILE;
-	
+	select id,nombre,ciudad,puntos from equipo;
 end//
 
 delimiter ;
