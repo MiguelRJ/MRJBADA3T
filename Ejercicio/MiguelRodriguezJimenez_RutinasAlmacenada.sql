@@ -274,5 +274,3 @@ begin
 end//
 
 delimiter ;
-
-delimiter ;
