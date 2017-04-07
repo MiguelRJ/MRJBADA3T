@@ -13,7 +13,7 @@ begin
 
 	set lenCadena = CHAR_LENGTH(cadena);
 
-	WHILE contador < lenCadena DO
+	WHILE contador <= lenCadena DO
 		set caracter = substr(cadena,contador,1);
 		set numCaracter = ASCII(caracter);
 		set cadena2 = concat(cadena2,CHAR(numCaracter+1));

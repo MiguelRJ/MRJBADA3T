@@ -19,7 +19,7 @@ begin
 			END IF;
 			set contador=contador+1;
 		END WHILE;
-	-- ##############################
+	-- ############################## create table primos (numero int);
 
 		IF divisor is true THEN
 			insert into primos (numero) values (numSeguidos);

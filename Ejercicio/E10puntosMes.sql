@@ -6,7 +6,7 @@ drop procedure if exists puntosMes//
 create procedure puntosMes(n int)
 comment 'Calculo los puntos al mes de cada equipo, crea la table si no esta creada, la muestra y la elimina.'
 begin
-	-- select substring_index(substring_index('2011-10-20','-',2),'-',-1);
+	-- select substring_index(substring_index('2011-10-20','-',2),'-',-1); solo de 1 a 12
 	declare puntosLocal int default 0;
 	declare puntosVisit int default 0;
 	declare contador int default 1;
