@@ -48,28 +48,32 @@ begin
 end//
 
 -- Ejercico3.1 esPalindromo(cadena varchar(255)) ####################
-drop procedure if exists esPalindromo//
+drop function if exists esPalindromo//
 
-create procedure esPalindromo(cadena varchar(255))
+create function esPalindromo(cadena varchar(255))
+returns bool
 comment 'comprueba si una cadena es palindromo 0 falso 1 true'
+DETERMINISTIC
 begin
 	declare cadena2 varchar(255) default '';
 	declare contador int default 0;
+	declare caracter char(1) default ' ';
+	declare caracterInvalido char(1) default ' ';
 	declare lenght int default 0;
 	set lenght = CHAR_LENGTH(cadena);
 	
 	WHILE contador <= lenght DO
-		set cadena2 = concat(cadena2,(select substr(cadena,lenght,1)));
+		set caracter = (select substr(cadena,lenght,1));
+		IF caracter <> caracterInvalido THEN
+			set cadena2 = concat(cadena2,caracter);		
+		END IF;
 		set lenght = lenght-1;
 	END WHILE;
 
-	select cadena;
-	select cadena2;
-
-	IF cadena = cadena2 THEN
-		select 'true';
+	IF replace(cadena," ","") = cadena2 THEN
+		return true;
 	ELSE
-		select 'false';
+		return false;
 	END IF;
 end//
 
@@ -81,7 +85,7 @@ returns bool
 comment 'comprueba si una cadena es palindromo 0 falso 1 true'
 DETERMINISTIC
 begin
-	IF cadena = reverse(cadena) THEN
+	IF replace(cadena," ","") = replace(reverse(cadena)," ","") THEN
 		return true;
 	ELSE
 		return false;
@@ -182,15 +186,19 @@ end//
 -- Ejercicio8 generarPrimos(m int,out salida int) ######################
 drop procedure if exists generarPrimos//
 
+create table if not exists prueba.primos (numero int)//
+
 create procedure generarPrimos(m int, out salida int)
 comment 'muestra m numeros primos, y salida muestra el numero total mostrado'
 begin
 	declare numSeguidos int default 2;
 	declare numDePrimos int default 0;
+
+	-- ############################## calcular primos del ejercicio 7
 	declare contador int default 2;
 	declare divisor bool default true;
 
-	truncate primos;
+	truncate prueba.primos;
 	WHILE numSeguidos <= m DO
 		WHILE contador <= numSeguidos/2 DO
 			IF (numSeguidos % contador = 0) THEN
@@ -198,9 +206,10 @@ begin
 			END IF;
 			set contador=contador+1;
 		END WHILE;
+	-- ############################## 
 
 		IF divisor is true THEN
-			insert into primos (numero) values (numSeguidos);
+			insert into prueba.primos (numero) values (numSeguidos);
 			set numDePrimos = numDePrimos+1;
 		END IF;
 
@@ -226,7 +235,7 @@ begin
 
 	set lenCadena = CHAR_LENGTH(cadena);
 
-	WHILE contador < lenCadena DO
+	WHILE contador <= lenCadena DO
 		set caracter = substr(cadena,contador,1);
 		set numCaracter = ASCII(caracter);
 		set cadena2 = concat(cadena2,CHAR(numCaracter+1));
@@ -241,36 +250,39 @@ drop procedure if exists puntosMes//
 create procedure puntosMes(n int)
 comment 'Calculo los puntos al mes de cada equipo, crea la table si no esta creada, la muestra y la elimina.'
 begin
-	-- select substring_index(substring_index('2011-10-20','-',2),'-',-1);
 	declare puntosLocal int default 0;
 	declare puntosVisit int default 0;
 	declare contador int default 1;
 	declare numMaxEquipo int default 0;
 	declare puntosSuma int default 0;
 	
-	drop table if exists puntosMes;
-	create temporary table puntosMes (id int,puntos int);
-	set numMaxEquipo = (select max(id) from equipo);
+	IF n BETWEEN 1 and 12 THEN
+		drop table if exists puntosMes;
+		create temporary table puntosMes (id int,puntos int);
+		set numMaxEquipo = (select max(id) from equipo);
 	
-	WHILE contador <= numMaxEquipo DO
-		set puntosLocal = (select sum(substring_index(resultado,'-',1)) from partido where elocal = contador and substring_index(substring_index(fecha,'-',2),'-',-1) = n);
-		set puntosVisit = (select sum(substring_index(resultado,'-',-1)) from partido where evisitante = contador and substring_index(substring_index(fecha,'-',2),'-',-1) = n);
+		WHILE contador <= numMaxEquipo DO
+			set puntosLocal = (select sum(substring_index(resultado,'-',1)) from partido where elocal = contador and substring_index(substring_index(fecha,'-',2),'-',-1) = n);
+			set puntosVisit = (select sum(substring_index(resultado,'-',-1)) from partido where evisitante = contador and substring_index(substring_index(fecha,'-',2),'-',-1) = n);
 
-		IF puntosLocal is null and puntosVisit is null THEN
-			set puntosSuma = 0;
-		ELSEIF puntosLocal is null THEN
-			set puntosSuma = puntosVisit;
-		ELSEIF puntosVisit is null THEN
-			set puntosSuma = puntosLocal;
-		ELSE
-			set puntosSuma = puntosLocal+PuntosVisit;
-		END IF;
+			IF puntosLocal is null and puntosVisit is null THEN
+				set puntosSuma = 0;
+			ELSEIF puntosLocal is null THEN
+				set puntosSuma = puntosVisit;
+			ELSEIF puntosVisit is null THEN
+				set puntosSuma = puntosLocal;
+			ELSE
+				set puntosSuma = puntosLocal+PuntosVisit;
+			END IF;
 		
-		insert into puntosMes (id, puntos) values (contador, puntosSuma);
-		set contador = contador+1;
-	END WHILE;
-	select * from puntosMes;
-	drop table puntosMes;
+			insert into puntosMes (id, puntos) values (contador, puntosSuma);
+			set contador = contador+1;
+		END WHILE;
+		select * from puntosMes;
+		drop table puntosMes;
+	ELSE
+		select 'Parametro incorrecto';
+	END IF;
 end//
 
 delimiter ;
