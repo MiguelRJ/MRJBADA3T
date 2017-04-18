@@ -7,7 +7,7 @@ returns bool
 comment 'comprueba si una cadena es palindromo 0 falso 1 true'
 DETERMINISTIC
 begin
-	IF cadena = reverse(cadena) THEN
+	IF replace(cadena," ","") = replace(reverse(cadena)," ","") THEN
 		return true;
 	ELSE
 		return false;

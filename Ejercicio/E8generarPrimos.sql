@@ -7,11 +7,13 @@ comment 'muestra m numeros primos, y salida muestra el numero total mostrado'
 begin
 	declare numSeguidos int default 2;
 	declare numDePrimos int default 0;
+
 	-- ############################## calcular primos del ejercicio 7
 	declare contador int default 2;
 	declare divisor bool default true;
-
-	truncate primos;
+	
+	create table if not exists prueba.primos (numero int);
+	truncate prueba.primos;
 	WHILE numSeguidos <= m DO
 		WHILE contador <= numSeguidos/2 DO
 			IF (numSeguidos % contador = 0) THEN
@@ -19,10 +21,10 @@ begin
 			END IF;
 			set contador=contador+1;
 		END WHILE;
-	-- ############################## create table primos (numero int);
+	-- ############################## 
 
 		IF divisor is true THEN
-			insert into primos (numero) values (numSeguidos);
+			insert into prueba.primos (numero) values (numSeguidos);
 			set numDePrimos = numDePrimos+1;
 		END IF;
 
