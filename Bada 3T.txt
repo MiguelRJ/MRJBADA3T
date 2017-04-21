@@ -78,3 +78,22 @@ show procedure|functions status ( [like '%x%'] | [ where db = database ] )\G ---
 	
 	error 1452: Message: Cannot add or update a child row: a foreign key constraint fails (%s) 
 	
+18-04----------------------------
+Cursores
+	
+	declaracion 	declare
+	apertura	open
+	recorrido 	fetch
+	cierra		close
+
+	el puntero del cursor apunta a la primera fila del select
+	recoger informacion con fetch entre open y close
+	
+	dos manejadores HANDLER's
+		continue handler
+		exit handler
+	
+	cursor se abre ejecuta el select
+	fetch coge la fila disponible y la vuelca
+	si el fetch falla ejecuta el manejador y pone a false la condicion
+	
