@@ -1,8 +1,8 @@
--- MySQL dump 10.14  Distrib 5.3.3-MariaDB-rc, for debian-linux-gnu (i686)
+-- MySQL dump 10.15  Distrib 10.0.29-MariaDB, for debian-linux-gnu (i686)
 --
--- Host: localhost    Database: concesionario
+-- Host: localhost    Database: localhost
 -- ------------------------------------------------------
--- Server version	5.3.3-MariaDB-rc-mariadb108~maverick-log
+-- Server version	10.0.29-MariaDB-1~trusty
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clientes` (
-  `dni` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `nombre` varchar(10) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `apellido` varchar(25) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `ciudad` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `dni` varchar(4) NOT NULL DEFAULT '',
+  `nombre` varchar(10) NOT NULL DEFAULT '',
+  `apellido` varchar(25) NOT NULL DEFAULT '',
+  `ciudad` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`dni`),
   KEY `dni` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,17 +50,17 @@ DROP TABLE IF EXISTS `coches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `coches` (
-  `codcoche` varchar(3) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `cifm` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `nombre` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `modelo` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `codcoche` varchar(3) NOT NULL DEFAULT '',
+  `cifm` varchar(4) NOT NULL DEFAULT '',
+  `nombre` varchar(15) NOT NULL DEFAULT '',
+  `modelo` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`codcoche`),
   UNIQUE KEY `itodos` (`codcoche`,`nombre`,`modelo`),
   KEY `cifm` (`cifm`),
   KEY `codcoche` (`codcoche`),
   KEY `ITODO2` (`codcoche`,`cifm`,`nombre`,`modelo`),
   CONSTRAINT `coches_ibfk_1` FOREIGN KEY (`cifm`) REFERENCES `marcas` (`cifm`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,12 +81,12 @@ DROP TABLE IF EXISTS `concesionario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `concesionario` (
-  `cifc` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `nombre` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `ciudad` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `cifc` varchar(4) NOT NULL DEFAULT '',
+  `nombre` varchar(4) NOT NULL DEFAULT '',
+  `ciudad` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`cifc`),
   KEY `cifc` (`cifc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,15 +107,15 @@ DROP TABLE IF EXISTS `distribucion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `distribucion` (
-  `cifc` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `codcoche` varchar(3) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `cifc` varchar(4) NOT NULL DEFAULT '',
+  `codcoche` varchar(3) NOT NULL DEFAULT '',
   `cantidad` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cifc`,`codcoche`),
   KEY `codcoche` (`codcoche`),
   KEY `cifc` (`cifc`),
   CONSTRAINT `distribucion_ibfk_1` FOREIGN KEY (`cifc`) REFERENCES `concesionario` (`cifc`) ON UPDATE CASCADE,
   CONSTRAINT `distribucion_ibfk_2` FOREIGN KEY (`codcoche`) REFERENCES `coches` (`codcoche`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,12 +136,12 @@ DROP TABLE IF EXISTS `marcas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `marcas` (
-  `cifm` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `nombre` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `ciudad` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `cifm` varchar(4) NOT NULL DEFAULT '',
+  `nombre` varchar(15) NOT NULL DEFAULT '',
+  `ciudad` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`cifm`),
   UNIQUE KEY `ICIFM` (`cifm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,6 +155,29 @@ INSERT INTO `marcas` VALUES ('0001','SEAT','MADRID'),('0002','RENAULT','BARCELON
 UNLOCK TABLES;
 
 --
+-- Table structure for table `t1`
+--
+
+DROP TABLE IF EXISTS `t1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t1` (
+  `a` int(11) NOT NULL,
+  PRIMARY KEY (`a`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t1`
+--
+
+LOCK TABLES `t1` WRITE;
+/*!40000 ALTER TABLE `t1` DISABLE KEYS */;
+INSERT INTO `t1` VALUES (1),(2),(3),(4);
+/*!40000 ALTER TABLE `t1` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ventas`
 --
 
@@ -162,17 +185,17 @@ DROP TABLE IF EXISTS `ventas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ventas` (
-  `cifc` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `dni` varchar(4) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `codcoche` varchar(3) COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `color` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `cifc` varchar(4) NOT NULL DEFAULT '',
+  `dni` varchar(4) NOT NULL DEFAULT '',
+  `codcoche` varchar(3) NOT NULL DEFAULT '',
+  `color` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`cifc`,`dni`,`codcoche`),
   KEY `dni` (`dni`),
   KEY `codcoche` (`codcoche`),
   CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cifc`) REFERENCES `concesionario` (`cifc`) ON UPDATE CASCADE,
   CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`dni`) REFERENCES `clientes` (`dni`) ON UPDATE CASCADE,
   CONSTRAINT `ventas_ibfk_3` FOREIGN KEY (`codcoche`) REFERENCES `coches` (`codcoche`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +204,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` VALUES ('0001','0001','001','BLANCO'),('0001','0002','005','ROJO'),('0002','0001','006','ROJO'),('0002','0003','008','BLANCO'),('0003','0004','011','ROJO'),('0004','0005','014','VERDE');
+INSERT INTO `ventas` VALUES ('0001','0001','001','BLANCO'),('0001','0002','005','ROJO'),('0001','0005','001','BLANCO'),('0002','0001','006','ROJO'),('0002','0003','008','BLANCO'),('0002','0005','006','ROJO'),('0003','0004','011','ROJO'),('0004','0005','014','VERDE');
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -194,4 +217,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-07 21:48:42
+-- Dump completed on 2017-04-21 13:08:17

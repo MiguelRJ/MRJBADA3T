@@ -97,3 +97,11 @@ Cursores
 	fetch coge la fila disponible y la vuelca
 	si el fetch falla ejecuta el manejador y pone a false la condicion
 	
+	alter table clientes convert to character set utf8 collate utf8_general_ci;
+	alter table ventas drop foreign key ventas_ibfk_1;
+
+20-04-------------------------------
+TRIGERS y poohs
+	
+	los trigers se asocian a tablas y estan programados para saltar cuando ocurra uns inserccion modificado borrado....
+	
