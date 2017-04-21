@@ -102,6 +102,32 @@ Cursores
 
 20-04-------------------------------
 TRIGERS y poohs
+		https://mariadb.com/kb/en/sql-99/create-trigger-statement/
+		https://dev.mysql.com/doc/refman/5.7/en/trigger-syntax.html
 	
 	los trigers se asocian a tablas y estan programados para saltar cuando ocurra uns inserccion modificado borrado....
+	
+
+	todo el trigger se guarda en 'new' y cuando este acaba todo va a la tabla
+	en un delete se guarda en 'old'
+	en un update estan en 'old' y 'new' 
+	los triggers solo funcionan cuando se cierran, si antes hay un fallo (excepcion) no realizara el cambio (select,update,insert,delete)
+	cuidado con las llamadas a triggers cuando ya estan en uno (bucles infinitos)
+
+	delimiter //
+
+	CREATE TRIGGER upd_check BEFORE UPDATE ON account
+       FOR EACH ROW
+       BEGIN
+           IF NEW.amount < 0 THEN
+               SET NEW.amount = 0;
+           ELSEIF NEW.amount > 100 THEN
+               SET NEW.amount = 100;
+           END IF;
+       END;//
+
+	delimiter ;
+
+	los triggers no usan la tabla 'equipo' una vez hecha la tabla esa no se puede triggerear
+
 	
