@@ -130,4 +130,12 @@ TRIGERS y poohs
 
 	los triggers no usan la tabla 'equipo' una vez hecha la tabla esa no se puede triggerear
 
-	
+	create user liga_usr@'%' identified by '123';
+	revoke all, grant option from user;
+	grant insert liga.log to liga_usr;
+	grant select, update,delete,insert on liga.jugador to liga_usr;
+	select host from information_schema.processlist where id=connection_id();
+
+	insert into log values (curdate(),curtime(),substring_index(current_user(),'@',1),(select host from information_schema.processlist where id=connection_id()),new.id);
+
+	grant trigger on liga.* to liga_usr
