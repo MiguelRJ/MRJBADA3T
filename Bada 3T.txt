@@ -139,3 +139,29 @@ TRIGERS y poohs
 	insert into log values (curdate(),curtime(),substring_index(current_user(),'@',1),(select host from information_schema.processlist where id=connection_id()),new.id);
 
 	grant trigger on liga.* to liga_usr
+
+02-05-----------------------------------------
+eventos
+	tareas que se ejecutan deacuerdo a un horario https://dev.mysql.com/doc/refman/5.7/en/create-event.html
+	
+	schedule
+		at: un momento concreto en toda la vida
+		every: repeticion cada X   every day
+			start timestamp + 1 week
+			end timestamp + 1 year
+			cada dia a partir de una semana durante un año 
+		
+		alter event diabled o enabled
+		show events;
+		show create event copiaSeguridadPartidos;
+		select @@event_scheduler;
+		set global event_scheduler = on;
+	permisos de eventos segun definer e invoker
+	grant event on absedatos.table to user
+
+	begin end es como el if else
+		si se va a ejecutar una sentencia despues de do no hace falta ponerlos
+
+SQLite
+	https://www.sqlite.org/features.html
+	
