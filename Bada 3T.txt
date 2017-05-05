@@ -165,3 +165,48 @@ eventos
 SQLite
 	https://www.sqlite.org/features.html
 	
+05-05--------------------------------------------
+create triggers
+	en mysql es obligatorio definir after o before
+	en mariadb no es obligatorio pero tienes que usar el "update of" (cuando se actualice columna X) cuando no pones after o before
+	
+SQLite https://www.sqlite.org/cli.html
+SQLite es debilmente tipado
+	sqlite3 places.sqlite
+	.help
+	.mode --- cambia el formato de salida 
+	.schema -- da info de la tabla (show create table)
+	.databases
+	.tables
+	select * from moz_places;
+	.write inyecta en la bd un sql
+	select date('now','start of month','+1 month', '-1 day'); https://www.sqlite.org/lang_datefunc.html
+	.width 12 6 --- width de cada columna
+	.header off ---primera linea de la tabla con los nombres de columans fuera
+	.mode insert new_table --- devuelve los "insert into..." de cada linea
+	.output salida.txt --- la salida al fichero 
+	.output --- la salida a la consola
+
+	insert into t2 values(1,readfile('cp.png')); --- insert imagenes
+	select writefile('cp.png', foto) from t2; --- select imagenes
+	
+	csv import
+		quitar el header del csv porque lo mete como datos
+	csv export
+		.header on
+		.mode csv --- prepara los datos de salida a csv
+		.once c:/work/dataout.csv --- prepara el fichero para la siguiente salida de datos
+		SELECT * FROM tab1;
+		.system c:/work/dataout.csv --- abre el fichero de salida como doble click de windows
+	
+	no se peude importar un dump de mysql en sqlite
+	sqlite tiene las claves primarias desactivadas, para activarlas hay que recompilar el sqlite
+
+	pragma cambia valores del programa https://www.sqlite.org/pragma.html
+	pragma foreign_keys;
+		el primer comando es el pragma foreign_keys=1;
+		a 0 no tiene encuenta las claves
+		a 1 si tiene encuenta las claves
+	
+	
+	((((https://www.sqlite.org/lang_attach.html))))
