@@ -1,0 +1,53 @@
+PRAGMA foreign_keys=on;
+drop table if exists ventas;
+drop table if exists distribucion;
+drop table if exists coches;
+drop table if exists concesionario;
+drop table if exists marcas;
+drop table if exists clientes;
+
+create table if not exists clientes (
+	dni text PRIMARY KEY,
+	nombre text,
+	apellido text,
+	ciudad text
+);
+
+create table if not exists marcas (
+	cifm text PRIMARY KEY,
+	nombre text,
+	ciudad text
+);
+
+create table if not exists concesionario (
+	cifc text PRIMARY KEY,
+	nombre text,
+	ciudad text
+);
+
+create table if not exists coches (
+	codcoche text PRIMARY KEY,
+	cifm text REFERENCES marcas (cifm) ON UPDATE CASCADE ON DELETE RESTRICT,
+	nombre text,
+	modelo text
+);
+
+create table if not exists distribucion (
+	cifc text,
+	codcoche text,
+	cantidad integer,
+	PRIMARY KEY (cifc, codcoche),
+	FOREIGN KEY (codcoche) REFERENCES coches (codcoche) on update cascade on delete restrict,
+	FOREIGN KEY (cifc) REFERENCES concesionario (cifc) on update cascade on delete restrict
+);
+
+create table if not exists ventas (
+	cifc text,
+	dni text,
+	codcoche text,
+	color text,
+	PRIMARY KEY (cifc, dni, codcoche),
+	FOREIGN KEY (cifc) REFERENCES concesionario (cifc) on update cascade on delete restrict,
+	FOREIGN KEY (dni) REFERENCES clientes (dni) on update cascade on delete restrict,
+	FOREIGN KEY (codcoche) REFERENCES coches (codcoche) on update cascade on delete restrict
+);

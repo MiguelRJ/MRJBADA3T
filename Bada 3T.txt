@@ -191,7 +191,7 @@ SQLite es debilmente tipado
 	select writefile('cp.png', foto) from t2; --- select imagenes
 	
 	csv import
-		quitar el header del csv porque lo mete como datos
+		quitar el header del csv porque lo mete como datos manualmente
 	csv export
 		.header on
 		.mode csv --- prepara los datos de salida a csv
@@ -210,3 +210,31 @@ SQLite es debilmente tipado
 	
 	
 	((((https://www.sqlite.org/lang_attach.html))))
+
+05-09-------------------------------------
+https://www.sqlite.org/datatype3.html
+	
+datatypes
+	funcionan "!=" y "<>"
+	cuidado al comparar cadenas o enteros
+	el texto siempre es 1 al comparar con un entero
+	
+	(elena help
+		sudo apt-get install python-pip
+		sudo pip install (--upgrade) mycli
+		mycli -u root)
+	
+	conseguir ficheros sin acceder a la base de datos, para tenerlos en local
+	mysql -u root -p -e "select * from concesionario.clientes" > clientes.csv
+
+	importar--
+	.mode csv
+	.separator "t"
+		.import clientes.csv clientes
+		.import concesionario.csv concesionario
+		.import marcas.csv marcas
+		.import coches.csv coches
+		.import distribucion.csv distribucion
+		.import ventas.csv ventas
+
+	
