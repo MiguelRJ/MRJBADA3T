@@ -237,4 +237,17 @@ datatypes
 		.import distribucion.csv distribucion
 		.import ventas.csv ventas
 
-	
+05-12----------------
+	Dentro del cuerpo del trigger no se puede poner if, usar:=selectcase
+
+		rlike de sqlite GLOB
+
+	Ejercicio de alquileres
+		arrendatario trigger dni (lenght 9, 8num, 1letter)
+		dueno trigger dni (lenght 9, 8num, 1letter)
+		agenda trigger num (leng 9)
+		agendadueno trigger comprobar que existe en las tablas
+		agendaarrendatario trigger comprobar que existe en las tablas
+		casa trigger comprobar que existe en dueno con ese dni
+		alquila trigger dates (text a fecha), deuda real, comprobar id de casa y dni de arrendatario
+		

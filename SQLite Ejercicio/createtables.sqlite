@@ -1,0 +1,56 @@
+PRAGMA foreign_keys=on;
+drop table if exists alquila;
+drop table if exists casa;
+drop table if exists agendadueno;
+drop table if exists agendaarrendatario;
+drop table if exists agenda;
+drop table if exists arrendatario;
+drop table if exists dueno;
+
+create table dueno (
+	dni text PRIMARY KEY,
+	nombre text
+);
+
+create table arrendatario (
+	dni text PRIMARY KEY,
+	nombre text
+);
+
+create table agenda (
+	num integer PRIMARY KEY
+);
+
+create table agendaarrendatario (
+	dni text,
+	num integer,
+	PRIMARY KEY (dni,num),
+	FOREIGN KEY (dni) REFERENCES arrendatario (dni) on update cascade on delete restrict,
+	FOREIGN KEY (num) REFERENCES agenda (num) on update cascade on delete restrict
+);
+
+create table agendadueno (
+	dni text,
+	num integer,
+	PRIMARY KEY (dni,num),
+	FOREIGN KEY (dni) REFERENCES dueno (dni) on update cascade on delete restrict,
+	FOREIGN KEY (num) REFERENCES agenda (num) on update cascade on delete restrict
+);
+
+create table casa (
+	id integer PRIMARY KEY ,
+	direccion text,
+	dueno text,
+	FOREIGN KEY (dueno) REFERENCES dueno (dni) on update cascade on delete restrict
+);
+
+create table alquila (
+	dni text,
+	id integer,
+	fechaD text,
+	fechaH text,
+	deuda real,
+	PRIMARY KEY (dni,id),
+	FOREIGN KEY (dni) REFERENCES arrendatario (dni) on update cascade on delete restrict,
+	FOREIGN KEY (id) REFERENCES casa (id) on update cascade on delete restrict
+);
