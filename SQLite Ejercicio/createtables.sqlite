@@ -1,4 +1,6 @@
+
 PRAGMA foreign_keys=on;
+
 drop table if exists alquila;
 drop table if exists casa;
 drop table if exists agendadueno;
@@ -40,7 +42,7 @@ create table agendadueno (
 create table casa (
 	id integer PRIMARY KEY ,
 	direccion text,
-	dueno text,
+	dueno text not null,
 	FOREIGN KEY (dueno) REFERENCES dueno (dni) on update cascade on delete restrict
 );
 
