@@ -1,0 +1,53 @@
+.read createtables.sqlite
+.read tridueno.sql
+.read triarrendatario.sql
+.read triagenda.sql
+.read triagendadueno.sql
+.read triagendaarrendatario.sql
+.read tricasa.sql
+.read trialquila.sql
+
+
+insert into dueno values ('00000000M','Migue');
+insert into dueno values ('11111111J','Juan');
+insert into dueno values ('22222222A','Adrian');
+insert into dueno values ('33333333G','Guille');
+insert into dueno values ('44444444C','Carlos');
+insert into arrendatario values ('55555555E','Elena');
+insert into arrendatario values ('66666666D','Dani');
+insert into arrendatario values ('77777777S','Sebastian');
+insert into arrendatario values ('88888888L','Lourdes');
+insert into arrendatario values ('99999999R','Raul');
+
+insert into agenda values (100000000);
+insert into agenda values (111111111);
+insert into agenda values (222222222);
+insert into agenda values (333333333);
+insert into agenda values (444444444);
+insert into agenda values (555555555);
+insert into agenda values (666666666);
+insert into agenda values (777777777);
+insert into agenda values (888888888);
+insert into agenda values (999999999);
+
+insert into agendadueno values ('00000000M',100000000);
+insert into agendadueno values ('11111111J',111111111);
+insert into agendaarrendatario values ('55555555E',555555555);
+insert into agendaarrendatario values ('66666666D',666666666);
+
+insert into casa values (1,'Cómpeta, 28, 1A','00000000M');
+insert into casa values (2,'Cómpeta, 28, 1B','00000000M');
+insert into casa values (3,'Cómpeta, 28, 1C','00000000M');
+insert into casa values (4,'Cómpeta, 28, 1D','00000000M');
+insert into casa values (5,'Cómpeta, 28, 2A','11111111J');
+insert into casa values (6,'Cómpeta, 28, 2B','11111111J');
+insert into casa values (7,'Cómpeta, 28, 2C','11111111J');
+insert into casa values (8,'Cómpeta, 28, 2D','11111111J');
+
+insert into alquila values ('55555555E',1,'2017-01-10','2017-01-20',0);
+insert into alquila values ('55555555E',1,'2017-01-15','2017-01-25',0);
+insert into alquila values ('55555555E',1,'2017-01-05','2017-01-15',0);
+insert into alquila values ('55555555E',1,'2017-01-11','2017-01-19',0);
+insert into alquila values ('55555555E',1,'2017-01-09','2017-01-21',0);
+insert into alquila values ('55555555E',1,'2017-06-15','2017-06-16',0);
+

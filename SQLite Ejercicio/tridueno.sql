@@ -1,6 +1,6 @@
-drop trigger if exists BeforeInsertArrendatario;
+drop trigger if exists BeforeInsertDueno;
 
-create trigger BeforeInsertArrendatario before insert on arrendatario
+create trigger BeforeInsertDueno before insert on dueno
 for each row
 begin
 	-- not glob para cuando no cumpla el patron indicado

@@ -47,12 +47,11 @@ create table casa (
 );
 
 create table alquila (
-	dni text,
+	arrendatario text,
 	id integer,
 	fechaD text,
 	fechaH text,
 	deuda real,
-	PRIMARY KEY (dni,id),
-	FOREIGN KEY (dni) REFERENCES arrendatario (dni) on update cascade on delete restrict,
+	FOREIGN KEY (arrendatario) REFERENCES arrendatario (dni) on update cascade on delete restrict,
 	FOREIGN KEY (id) REFERENCES casa (id) on update cascade on delete restrict
 );
