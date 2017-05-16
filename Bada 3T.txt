@@ -251,3 +251,8 @@ datatypes
 		casa trigger comprobar que existe en dueno con ese dni
 		alquila trigger dates (text a fecha), deuda real, comprobar id de casa y dni de arrendatario
 		
+	SELECT sum(a.deuda),d.dni, d.nombre FROM alquila a INNER JOIN casa c ON c.id = a.id INNER JOIN dueno d ON d.dni = c.dueno GROUP BY d.dni;
+	inner join sirve para coger los valores de dos tablas que son iguales, en dos circulos solapados la seleccion seria la parte en la que se solapan, los iguales.
+
+	select dueno from casa group by dueno having(count(*) >= 3);
+	having agrupa por las filas que cumplan esa condicion

@@ -13,8 +13,23 @@ begin
 		RAISE(Abort,'ERROR: No existe ninguna casa con ese id')
 	END;
 
+	-- Cuando el arrendatario tiene deudas
+	SELECT CASE WHEN exists (select * from alquila where arrendatario=new.arrendatario and deuda>0) THEN
+		RAISE(Abort,'ERROR: Ese arrendatario no puede alquilar porque tiene deudas pendientes.')
+	END;
+
+	-- Cuando la fechaD es menor que date('now')
+	SELECT CASE WHEN date(new.fechaD) < date('now') THEN
+		RAISE(Abort,'ERROR: La fechaDesde esta en el pasado.')
+	END;
+
+	-- Cuando las fechas son iguales
+	SELECT CASE WHEN date(new.fechaD) = date(new.fechaH) THEN
+		RAISE(Abort,'ERROR: La fechaDesde no puede ser igual a la fechaHasta.')
+	END;
+
 	-- Cuando la fechaD es mayor a fechaH
-	SELECT CASE WHEN date(new.fechaD) >= date(new.fechaH) THEN
+	SELECT CASE WHEN date(new.fechaD) > date(new.fechaH) THEN
 		RAISE(Abort,'ERROR: La fechaDesde no puede ser mayor a la fechaHasta.')
 	END;
 
