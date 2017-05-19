@@ -256,3 +256,10 @@ datatypes
 
 	select dueno from casa group by dueno having(count(*) >= 3);
 	having agrupa por las filas que cumplan esa condicion
+
+05-19------------------
+	Ultimo dia
+
+	insert into partido select elocal,evisitante,concat(50+round(rand()*65),"-",50+round(rand()*65)),date_add(fecha, interval 1 year),arbitro from partido;
+
+	

@@ -4,12 +4,12 @@ create trigger BeforeInsertAlquila before insert on alquila
 for each row
 begin
 	-- Cuando no encuentra el dni del arrendatario
-	SELECT CASE WHEN not exists (select * from arrendatario where dni=new.arrendatario) THEN
+	SELECT CASE WHEN exists (select * from alquila) and not exists (select * from arrendatario where dni=new.arrendatario) THEN
 		RAISE(Abort,'ERROR: No existe ningun arrendatario con ese dni.')
 	END;
 
 	-- Cuando no encuentra el id de la casa
-	SELECT CASE WHEN not exists (select * from casa where id=new.id) THEN
+	SELECT CASE WHEN exists (select * from alquila) and not exists (select * from casa where id=new.id) THEN
 		RAISE(Abort,'ERROR: No existe ninguna casa con ese id')
 	END;
 
